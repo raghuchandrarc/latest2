@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Test"
+           tests="1"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="64.378">
+  <properties />
+  
+  
+            <testcase name="TestCaseController" time="64.378" classname="com.Test.TestController" />
+      
+</testsuite>

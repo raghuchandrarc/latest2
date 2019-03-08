@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+    <line>
+      <![CDATA[About to begin executing Test  Test Suites Report]]>
+    </line>
+    <line>
+      <![CDATA[About to start executing Test TestCaseController]]>
+    </line>
+    <line>
+      <![CDATA[Test Status: Pass]]>
+    </line>
+    <line>
+      <![CDATA[<=========================End Of TestStep=========================>]]>
+    </line>
+    <line>
+      <![CDATA[																		]]>
+    </line>
+  </reporter-output>
+  <suite started-at="2019-03-08T04:31:29Z" name="Test Suite Report" finished-at="2019-03-08T04:32:45Z" duration-ms="76617">
+    <groups>
+    </groups>
+    <test started-at="2019-03-08T04:31:29Z" name=" Test Suites Report" finished-at="2019-03-08T04:32:45Z" duration-ms="76617">
+      <class name="com.Test.TestController">
+        <test-method is-config="true" signature="initBrowser()[pri:0, instance:com.Test.TestController@6dab9b6d]" started-at="2019-03-08T10:01:29Z" name="initBrowser" finished-at="2019-03-08T10:01:36Z" duration-ms="7913" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initBrowser -->
+        <test-method signature="TestCaseController()[pri:0, instance:com.Test.TestController@6dab9b6d]" started-at="2019-03-08T10:01:36Z" name="TestCaseController" finished-at="2019-03-08T10:02:42Z" duration-ms="65214" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[Test Status: Pass]]>
+            </line>
+            <line>
+              <![CDATA[<=========================End Of TestStep=========================>]]>
+            </line>
+            <line>
+              <![CDATA[																		]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- TestCaseController -->
+        <test-method is-config="true" signature="quitBrowser()[pri:0, instance:com.Test.TestController@6dab9b6d]" started-at="2019-03-08T10:02:42Z" name="quitBrowser" finished-at="2019-03-08T10:02:45Z" duration-ms="3470" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quitBrowser -->
+      </class> <!-- com.Test.TestController -->
+    </test> <!--  Test Suites Report -->
+  </suite> <!-- Test Suite Report -->
+</testng-results>
