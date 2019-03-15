@@ -606,7 +606,9 @@ public class Keywords extends Resources {
 		try {
 			String GetTExt = getWebElement(webElement).getText();
 			System.out.println("Get captured data " + GetTExt);
-			// Xls_Reader.setcelldata("path", "sheetName","Sample",GetTExt);
+			System.out.println(" data " + TestDataField);
+			
+			 Xls_Reader.setcelldata(InputData, TestController.mTestCaseName,TestDataField,GetTExt);
 		} catch (InterruptedException e) {
 			Log4j.error("Not able to WriteTextToXl--- " + e.getMessage());
 			return "Failed - WriteTextToXl";

@@ -2,12 +2,14 @@ package com.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -37,10 +39,10 @@ public class Xls_Reader {
 	public  String path;
 	public  FileInputStream fis = null;
 	public  FileOutputStream fileOut =null;
-    private XSSFWorkbook workbook = null;
-	private XSSFSheet sheet = null;
-	private XSSFRow row   =null;
-	private XSSFCell cell = null;
+	public  XSSFWorkbook workbook = null;
+	public  XSSFSheet sheet = null;
+	public  XSSFRow row   =null;
+	public  XSSFCell cell = null;
 	
 	public Xls_Reader(String path) {
 		
@@ -624,15 +626,16 @@ public class Xls_Reader {
 		  }
 	
 
-	public  void setcelldata(String path, String sheetName, String colName,  String data)
+	public static  void setcelldata(String path, String sheetName, String colName,  String data)
 			throws Exception {
 		// create an object of Workbook and pass the FileInputStream object into
 		// it to create a pipeline between the sheet and eclipse.
+		System.out.println("Writing Innertext in to" +path+" --" +sheetName+" --"+colName+"-- "+data+"");
 		FileInputStream fis = new FileInputStream(path);
-		workbook = new XSSFWorkbook(fis);
-		sheet = workbook.getSheet(sheetName);
+		XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		XSSFSheet  sheet = workbook.getSheet(sheetName);
 		int col_Num = -1;
-		row = sheet.getRow(0);
+		XSSFRow row = sheet.getRow(0);
 		for (int i = 0; i < row.getLastCellNum(); i++) {
 			if (row.getCell(i).getStringCellValue().trim().equals(colName)) {
 				col_Num = i;
@@ -642,11 +645,11 @@ public class Xls_Reader {
 		int rowNum =1;
 
 		//sheet.autoSizeColumn(col_Num);
-		row = sheet.getRow(rowNum);
+		 row = sheet.getRow(rowNum);
 		if (row == null)
 			row = sheet.createRow(rowNum);
 
-		cell = row.getCell(col_Num);
+		XSSFCell cell = row.getCell(col_Num);
 		if (cell == null)
 			cell = row.createCell(col_Num);
 		cell.setCellType(cell.CELL_TYPE_STRING);
@@ -657,15 +660,74 @@ public class Xls_Reader {
 		System.out.println("End writing " + data + " into this file path: "+ path +"   Sheet name: " + sheetName +"   Column name: " + colName +"");
 	}
 
+	
+	
+	public  String findTestData( String sheetName, String cellContent) throws IOException {
+		System.out.println("inside findTestData " + path + " --" + sheetName + " --" + cellContent + "");
+		//FileInputStream fis = new FileInputStream(path);
+		//XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		 sheet = workbook.getSheet(sheetName);
+		DataFormatter formatter = new DataFormatter();
+		for (Row row : sheet) {
+			for (Cell cell : row) {
+
+				if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+					if (cell.getRichStringCellValue().getString().trim().equals(cellContent)) {
+						int rownum = row.getRowNum();
+
+						System.out.println(cellContent+ " Test data Found in rownum --> " + rownum );
+						int val = cell.getColumnIndex();
+						cell = row.getCell(val + 1);
+						String srow = formatter.formatCellValue(cell);
+						System.out.println("Test data is --> " + srow);
+						return srow;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static String writeTestData(String path, String sheetName, String cellContent,String TestData) throws IOException {
+		System.out.println("inside writeTestData " + path + " --" + sheetName + " --" + cellContent + "--" +TestData);
+		FileInputStream fis = new FileInputStream(path);
+		XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		XSSFSheet sheet = workbook.getSheet(sheetName);
+		DataFormatter formatter = new DataFormatter();
+		for (Row row : sheet) {
+			for (Cell cell : row) {
+
+				if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+					if (cell.getRichStringCellValue().getString().trim().equals(cellContent)) {
+						int rownum = row.getRowNum();
+
+						System.out.println(cellContent+ " Test data Found in rownum --> " + rownum );
+						int val = cell.getColumnIndex();
+						int colVal=val+1;
+						cell = row.createCell(colVal);
+						cell.setCellValue(TestData);
+						FileOutputStream fos = new FileOutputStream(path);
+						workbook.write(fos);
+						fos.close();
+						System.out.println("End writing TestData" + TestData + " into this file path: "+ path +"   Sheet name: " + sheetName +" ");
+
+						return TestData;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 
 	public static void main(String[] args) throws Exception {
 		
 
-		String toFind = "TS02 CUsername|TS03 DPassword";
-		String TestSuite=System.getProperty("user.dir") + "\\TestSuite&Testcases\\TestSuite1.xlsx";
+		String toFind = "Varname2";
+		String toWrite = "WriteDatasss";
+		String TestSuite=System.getProperty("user.dir") + "\\TestSuite&Testcases\\TestSuite1Data.xlsx";
 		Xls_Reader s=new Xls_Reader(TestSuite);
-    	s.SearchTst(toFind,"TestCases",TestSuite,"TestCaseID"); 
-
+		s.writeTestData(TestSuite, "MasterTestData", toFind,toWrite);
 	}
 
 }

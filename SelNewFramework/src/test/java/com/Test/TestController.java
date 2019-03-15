@@ -29,7 +29,7 @@ public class TestController extends Resources {
 
 	String TestSuites = TestSuite;
 	Xls_Reader s = new Xls_Reader(TestSuite);
-	protected String mTestCaseName = "";
+	protected static String mTestCaseName = "";
 	String TestCaseName;
 	public static final String FIREFOX = "firefox";
 	public static final String IE = "IE";
@@ -178,7 +178,8 @@ public class TestController extends Resources {
 							String ReuseVar2 = s.searchString(reuse, s1);
 							if (ReuseVar2.contains(s1)) {
 
-								TestData = TestStepData.getCellData(TestCaseID, ReuseVar2, TD);
+								//TestData = TestStepData.getCellData(TestCaseID, ReuseVar2, TD);
+								TestData = TestStepData.findTestData("MasterTestData", ReuseVar2);
 								Method method = Keywords.class.getMethod(keyword);
 								TSStatus = (String) method.invoke(method);
 								if (TSStatus.contains("Failed")) {
@@ -225,7 +226,8 @@ public class TestController extends Resources {
 							Description = SuiteData.getCellData(TestCaseID, "Description", TS);
 							TestDataField = SuiteData.getCellData(TestCaseID, "TestDataField", TS);
 
-							TestData = TestStepData.getCellData(TestCaseID, TestDataField, TD);
+							//TestData = TestStepData.getCellData(TestCaseID, TestDataField, TD);
+							TestData = TestStepData.findTestData("MasterTestData", TestDataField);
 							Log4j.startTestCase(TestCaseID, keyword, webElement, TestData);
 							Method method = Keywords.class.getMethod(keyword);
 							TSStatus = (String) method.invoke(method);
