@@ -158,9 +158,6 @@ public class TestController extends Resources {
 						s.writeReuse(arrSplit, reuse);
 					}
 
-					// loop through test data
-					for (int TD = 2; TD <= rows; TD++) {
-
 						// loop through the test steps
 						System.out.println("SuiteData.getRowCount(TestCaseID)" + SuiteData.getRowCount(TestCaseID));
 
@@ -184,7 +181,7 @@ public class TestController extends Resources {
 								TSStatus = (String) method.invoke(method);
 								if (TSStatus.contains("Failed")) {
 									// take the screenshot
-									String filename = TestCaseID + "[" + (TD - 1) + "]" + TSID + "[" + TestData + "]";
+									String filename = TestCaseID + TSID + "[" + TestData + "]";
 									//test.log(Status.FAIL, "--" + TSID + "--" + Description + "--" + TestDataField + "");
 									Log4j.error(TestCaseID);
 
@@ -206,13 +203,10 @@ public class TestController extends Resources {
 						}
 						Log4j.endTestCase(TestCaseID, TSID);
 
-					}
 
 				}
 
 				else {
-					// loop through test data
-					for (int TD = 2; TD <= rows; TD++) {
 
 						// loop through the test steps
 						System.out.println("SuiteData.getRowCount(TestCaseID)" + SuiteData.getRowCount(TestCaseID));
@@ -234,7 +228,7 @@ public class TestController extends Resources {
 
 							if (TSStatus.contains("Failed")) {
 								// take the screenshot
-								String filename = TestCaseID + "[" + (TD - 1) + "]" + TSID + "[" + TestData + "]";
+								String filename = TestCaseID +  TSID + "[" + TestData + "]";
 								//test.log(Status.FAIL, "--" + TSID + "--" + Description + "--" + TestDataField + "");
 
 								TCStatus = TSStatus;
@@ -254,7 +248,6 @@ public class TestController extends Resources {
 							}
 
 						}
-					}
 				}
 			}
 			System.out.println("Testtt " + mTestCaseName);
