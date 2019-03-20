@@ -582,12 +582,18 @@ public class Keywords extends Resources {
 
 	public static String waitFor() throws InterruptedException {
 		try {
-			Thread.sleep(10000);
+			
+			String timeout=TestData;
+			System.out.println("Waiting Time in seconds " +timeout);
+			long waitTime=Long.parseLong(timeout);  
+			long seconds = TimeUnit.SECONDS.toMillis(waitTime);
+			Thread.sleep(seconds);
 		} catch (InterruptedException e) {
 			return "Failed - unable to load the page";
 		}
 		return "Pass";
 	}
+
 
 	/**
 	 * Navigate to next page
